@@ -2,6 +2,8 @@ package com.codecool.stickman.GameObjects.Characters;
 import com.codecool.stickman.GameObjects.GameObjectType;
 import com.codecool.stickman.GameObjects.Items.*;
 
+import java.util.Random;
+
 public class Player extends Character {
     private int strength;
     private int agility;
@@ -36,9 +38,13 @@ public class Player extends Character {
     }
 
     public int attack(){
-        if (this.weapon == null)
-            return strength;
-        return this.weapon.dealDamage() + strength;
+        Random hit = new Random();
+        if (hit.nextInt() < this.hitChanse) {
+            if (this.weapon == null)
+                return strength;
+            return this.weapon.dealDamage() + strength;
+        }
+        return 0;
     }
 
     public void changeStrength (int changeAmount){
