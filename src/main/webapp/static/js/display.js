@@ -16,27 +16,6 @@ function setup() {
 
 function draw() {
 
-    ajax_get('/send', function (data) {
-        for (x in data) {
-            for (y in data[x]) {
-                switch (data[x][y].name) {
-                    case 'DRAGON': image(dragon_image);
-                        break;
-                    case 'LOOT': image(loot_image);
-                        break;
-                    case 'MAIN_CHARACTER': image(main_character_image);
-                        break;
-                    case 'SKELETON': image(skeleton_image);
-                        break;
-                    case 'SLIME': image(slime_image);
-                        break;
-                    case 'WALL': image(wall_image);
-                        break;
-                }
-            }
-        }
-    })
-
 
 }
 
@@ -70,3 +49,28 @@ function ajax_get(url, callback) {
 }
 
 var button = document.getElementById('test');
+button.onclick = function () {
+
+    ajax_get('/send', function (data) {
+        for (x in data) {
+            for (y in data[x]) {
+                switch (data[x][y].name) {
+                    case 'DRAGON': image(dragon_image);
+                        break;
+                    case 'LOOT': image(loot_image);
+                        break;
+                    case 'MAIN_CHARACTER': image(main_character_image);
+                        break;
+                    case 'SKELETON': image(skeleton_image);
+                        break;
+                    case 'SLIME': image(slime_image);
+                        break;
+                    case 'WALL': image(wall_image);
+                        break;
+                }
+            }
+        }
+    })
+
+
+};
