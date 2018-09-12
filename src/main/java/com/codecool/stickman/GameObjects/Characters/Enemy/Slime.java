@@ -1,5 +1,7 @@
 package com.codecool.stickman.GameObjects.Characters.Enemy;
 
+import com.codecool.stickman.GameObjects.GameObjectType;
+
 import java.util.Random;
 
 public class Slime extends com.codecool.stickman.GameObjects.Characters.Enemy.Enemy {
@@ -8,6 +10,7 @@ public class Slime extends com.codecool.stickman.GameObjects.Characters.Enemy.En
     public Slime(int X, int Y, int level) {
         super(X,Y,12 * level/2,level,level);
         this.hitChanse = 80;
+        this.type = GameObjectType.SLIME;
     }
 
     @Override
