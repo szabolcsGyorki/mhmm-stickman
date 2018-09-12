@@ -24,7 +24,9 @@ import static com.codecool.stickman.GameObjects.GameObjectType.*;
 public class AjaxCall extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Level levelOne = new Level(12,12,WALL, FLOOR);
+        String actionRequired = req.getHeader("action");
+        //resp.getWriter().write(levelToJson(INSERT LIST HERE).toJSONString());
+        Level levelOne = new Level(10,10 ,WALL, FLOOR);
         levelOne.placeWall(2,2);
         levelOne.placeEnemy(1,1,SLIME,1);
         levelOne.placeEnemy(1,2,SKELETON,1);
