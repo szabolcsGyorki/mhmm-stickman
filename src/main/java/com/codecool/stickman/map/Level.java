@@ -31,6 +31,14 @@ public class Level {
         return map;
     }
 
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
     public GameObjectType getFloor() {
         return floor;
     }
