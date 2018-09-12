@@ -27,6 +27,10 @@ public class Level {
         generateBase();
     }
 
+    public ArrayList<GameObject> getMap() {
+        return map;
+    }
+
     public GameObjectType getFloor() {
         return floor;
     }
@@ -35,6 +39,9 @@ public class Level {
         map.add(new Wall(X,Y,this.wall));
     }
 
+    public void placePlayer(Player player){
+        map.add(player);
+    }
     public void placeEnemy(int X,int Y, GameObjectType type, int level) {
         switch (type) {
             case SLIME:
@@ -64,7 +71,6 @@ public class Level {
             }
 
         switch (destination.getType()) {
-            case FOREST: break;
             case FLOOR: {
                 movingCharacter.place(toX, toY);
                 break;

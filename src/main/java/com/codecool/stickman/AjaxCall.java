@@ -12,18 +12,27 @@ import java.util.ArrayList;
 
 import com.codecool.stickman.GameObjects.Characters.Player;
 import com.codecool.stickman.GameObjects.GameObject;
+import com.codecool.stickman.GameObjects.GameObjectType;
 import com.codecool.stickman.map.Level;
-import com.codecool.stickman.map.LevelOne;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+
+import static com.codecool.stickman.GameObjects.GameObjectType.*;
 
 @WebServlet(urlPatterns = {"/send"})
 public class AjaxCall extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        //resp.getWriter().write(levelToJson(INSERT LIST HERE).toJSONString());
+        Level levelOne = new Level(12,12,WALL, FLOOR);
+        levelOne.placeWall(2,2);
+        levelOne.placeEnemy(1,1,SLIME,1);
+        levelOne.placeEnemy(1,2,SKELETON,1);
+        levelOne.placeEnemy(1,3,ORC,1);
+        levelOne.placeEnemy(1,4,DRAGON,1);
+        Player Zsolt = new Player(1,5);
+        levelOne.placePlayer(Zsolt);
+        resp.getWriter().write(levelToJson(levelOne.getMap()).toJSONString());
 
     }
 
