@@ -9,8 +9,5 @@
         <module name="punkRockStickMan" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="punkRockStickMan" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
