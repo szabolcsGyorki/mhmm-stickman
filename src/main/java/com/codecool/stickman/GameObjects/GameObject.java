@@ -1,6 +1,6 @@
 package com.codecool.stickman.GameObjects;
 
-public class GameObject {
+public abstract class GameObject {
     protected GameObjectType type;
     protected int X;
     protected int Y;
