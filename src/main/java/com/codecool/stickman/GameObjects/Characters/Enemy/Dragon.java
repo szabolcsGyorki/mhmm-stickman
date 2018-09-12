@@ -1,5 +1,7 @@
 package com.codecool.stickman.GameObjects.Characters.Enemy;
 
+import com.codecool.stickman.GameObjects.GameObjectType;
+
 public class Dragon extends Enemy {
     int fireBreathTimer;
     public Dragon(int X, int Y, int level) {
@@ -8,6 +10,7 @@ public class Dragon extends Enemy {
         dodgeChanse = 15;
         hitChanse = 90;
         fireBreathTimer = 2;
+        this.type = GameObjectType.DRAGON;
     }
 
     @Override
