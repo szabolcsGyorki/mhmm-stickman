@@ -81,7 +81,10 @@ public class Level {
                 map.remove(destination);
                 break;
             }
-            case SLIME: {     // !!!!! PROBLEM !!!!!!
+            case DRAGON:
+            case ORC:
+            case SKELETON:
+            case SLIME: {
                 if (movingCharacter instanceof Player) {
                     Player player = (Player) movingCharacter;
                     Enemy enemy = (Enemy) destination;
