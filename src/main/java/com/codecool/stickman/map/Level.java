@@ -107,10 +107,9 @@ public class Level {
             map.add(new Wall(i,0,this.wall));
             map.add(new Wall(i,HEIGHT-1,this.wall));
         }
-        for(int i = 0; i< HEIGHT-1; i++){
+        for(int i = 1; i< HEIGHT-2; i++){
             map.add(new Wall(0,i,this.wall));
             map.add(new Wall(WIDTH-1,i,this.wall));
         }
-        map.add(new Wall(WIDTH-1,HEIGHT-1,this.wall));
     }
 }
