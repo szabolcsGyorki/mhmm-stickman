@@ -22,18 +22,43 @@ import static com.codecool.stickman.GameObjects.GameObjectType.*;
 
 @WebServlet(urlPatterns = {"/send"})
 public class AjaxCall extends HttpServlet {
+    Player Zsolt = new Player(1,5);
+    Level levelOne = new Level(10,10 ,WALL, FLOOR);
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String actionRequired = req.getHeader("action");
-        //resp.getWriter().write(levelToJson(INSERT LIST HERE).toJSONString());
-        Level levelOne = new Level(10,10 ,WALL, FLOOR);
+    public void init(){
         levelOne.placeWall(2,2);
         levelOne.placeEnemy(1,1,SLIME,1);
         levelOne.placeEnemy(1,2,SKELETON,1);
         levelOne.placeEnemy(1,3,ORC,1);
         levelOne.placeEnemy(1,4,DRAGON,1);
-        Player Zsolt = new Player(1,5);
-        levelOne.placePlayer(Zsolt);
+    }
+
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String actionRequired = req.getHeader("action");
+        switch (actionRequired){
+            case "up":{
+                if(Zsolt.getY() < levelOne.getHEIGHT())
+                levelOne.move(Zsolt.getX(), Zsolt.getY()+1, Zsolt);
+            }
+            case "down":{
+                if(Zsolt.getY() > 0)
+                levelOne.move(Zsolt.getX(), Zsolt.getY()-1, Zsolt);
+            }
+            case "right": {
+                if(Zsolt.getX() < levelOne.getWIDTH())
+                levelOne.move(Zsolt.getX()+1, Zsolt.getY(), Zsolt);
+            }
+            case "left": {
+                if(Zsolt.getX() > 0)
+                levelOne.move(Zsolt.getX()-1, Zsolt.getY(), Zsolt);
+            }
+            case "map": {
+                break;
+            }
+        }
+
+        //resp.getWriter().write(levelToJson(INSERT LIST HERE).toJSONString());
+
         resp.getWriter().write(levelToJson(levelOne.getMap()).toJSONString());
 
     }

@@ -31,6 +31,14 @@ public class Level {
         return map;
     }
 
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
     public GameObjectType getFloor() {
         return floor;
     }
@@ -81,7 +89,10 @@ public class Level {
                 map.remove(destination);
                 break;
             }
-            case SLIME: {     // !!!!! PROBLEM !!!!!!
+            case DRAGON:
+            case ORC:
+            case SKELETON:
+            case SLIME: {
                 if (movingCharacter instanceof Player) {
                     Player player = (Player) movingCharacter;
                     Enemy enemy = (Enemy) destination;
@@ -104,10 +115,9 @@ public class Level {
             map.add(new Wall(i,0,this.wall));
             map.add(new Wall(i,HEIGHT-1,this.wall));
         }
-        for(int i = 0; i< HEIGHT-1; i++){
+        for(int i = 1; i< HEIGHT-2; i++){
             map.add(new Wall(0,i,this.wall));
             map.add(new Wall(WIDTH-1,i,this.wall));
         }
-        map.add(new Wall(WIDTH-1,HEIGHT-1,this.wall));
     }
 }
