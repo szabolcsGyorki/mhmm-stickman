@@ -56,18 +56,19 @@ button.onclick = function () {
     ajax_get('/send', function (data) {
         for (x in data) {
             for (y in data[x]) {
-                switch (data[x][y].name) {
-                    case 'DRAGON': image(dragon_image, x*50, y*50, height/12, width/12);
+                let gameObject = data[x][y];
+                switch (data[x][y]) {
+                    case 'DRAGON': image(dragon_image, gameObject.x*50, gameObject.y*50, height/12, width/12);
                         break;
-                    case 'LOOT': image(loot_image, x*50, y*50, height/12, width/12);
+                    case 'LOOT': image(loot_image, gameObject.x*50, gameObject.y*50, height/12, width/12);
                         break;
-                    case 'MAIN_CHARACTER': image(main_character_image, x*50, y*50, height/12, width/12);
+                    case 'MAIN_CHARACTER': image(main_character_image, gameObject.x*50, gameObject.y*50, height/12, width/12);
                         break;
-                    case 'SKELETON': image(skeleton_image, x*50, y*50, height/12, width/12);
+                    case 'SKELETON': image(skeleton_image, gameObject.x*50, gameObject.y*50, height/12, width/12);
                         break;
-                    case 'SLIME': image(slime_image, x*50, y*50, height/12, width/12);
+                    case 'SLIME': image(slime_image, gameObject.x*50, gameObject.y*50, height/12, width/12);
                         break;
-                    case 'WALL': image(wall_image, x*50, y*50, height/12, width/12);
+                    case 'WALL': image(wall_image, gameObject.x*50, gameObject.y*50, height/12, width/12);
                         break;
                 }
             }
