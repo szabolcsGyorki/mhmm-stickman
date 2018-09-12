@@ -1,17 +1,33 @@
 package com.codecool.stickman.GameObjects.Characters;
 import com.codecool.stickman.GameObjects.GameObjectType;
 import com.codecool.stickman.GameObjects.Items.*;
+import com.sun.javafx.beans.IDProperty;
+import org.eclipse.persistence.annotations.VariableOneToOne;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Player extends Character {
+
+
+    private String name;
     private int strength;
     private int agility;
     private int intelligence;
+
+    @ManyToOne
     private Armor fullBody;
+
+    @ManyToOne
     private Weapon weapon;
-    public static int X;
-    public static int Y;
 
+    private int X;
+    private int Y;
 
+    @ManyToMany
+    protected List<Item> items = new ArrayList<>();
 
     public Player(int X, int Y) {
         super(X, Y, 30, 0);
@@ -21,6 +37,10 @@ public class Player extends Character {
         intelligence = 3;
         this.X = X;
         this.Y = Y;
+        name = "Roger the don";
+    }
+
+    public Player() {
     }
 
     public void setFullBody(Armor fullBody) {
@@ -65,5 +85,17 @@ public class Player extends Character {
         return testValue<intelligence;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void addItemToInventory(Item item) {
+        items.add(item);
+    }
+
+    public Item getItemById(int id) {
+        return items.stream()
+                .filter(item -> item.getId() == id)
+                .findFirst().orElse(null);
+    }
 }

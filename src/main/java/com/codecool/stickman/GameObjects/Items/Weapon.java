@@ -1,8 +1,13 @@
 package com.codecool.stickman.GameObjects.Items;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Random;
 
+@Entity
 public class Weapon extends Item {
+
 
     private int maxDamage;
     private int minDamage;
@@ -11,6 +16,9 @@ public class Weapon extends Item {
         super(name, value);
         this.maxDamage = maxDamage;
         this.minDamage = minDamage;
+    }
+
+    public Weapon() {
     }
 
     public int dealDamage() {

@@ -4,19 +4,25 @@ import com.codecool.stickman.GameObjects.GameObject;
 import com.codecool.stickman.GameObjects.GameObjectType;
 import com.codecool.stickman.GameObjects.Items.Item;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Character extends GameObject {
     protected int hitPoint;
     protected int damage;
-    List<Item> items = new ArrayList<>();
+
     protected GameObjectType type;
 
     public Character(int X, int Y, int hitPoint, int damage) {
         super(X, Y);
         this.hitPoint = hitPoint;
         this.damage = damage;
+    }
+
+    protected Character() {
     }
 
     public void takeDamage(int damageAmount){
@@ -35,15 +41,6 @@ public abstract class Character extends GameObject {
         return hitPoint;
     }
 
-    public void addItemToInventory(Item item) {
-        items.add(item);
-    }
-
-    public Item getItemById(int id) {
-        return items.stream()
-                .filter(item -> item.getId() == id)
-                .findFirst().orElse(null);
-    }
 
     public void setHitPoint(int hitPoint) {
         this.hitPoint = hitPoint;

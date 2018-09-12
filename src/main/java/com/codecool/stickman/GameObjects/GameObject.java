@@ -1,6 +1,15 @@
 package com.codecool.stickman.GameObjects;
 
-public class GameObject {
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class GameObject {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    long id;
+
     protected GameObjectType type;
     protected int X;
     protected int Y;
@@ -9,6 +18,10 @@ public class GameObject {
         this.X = X;
         this.Y = Y;
     }
+
+    public GameObject() {
+    }
+
     public int getX() {
         return X;
     }
@@ -26,4 +39,7 @@ public class GameObject {
         this.Y = Y;
     }
 
+    public long getId() {
+        return id;
+    }
 }
