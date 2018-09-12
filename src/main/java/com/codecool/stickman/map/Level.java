@@ -10,7 +10,7 @@ import com.codecool.stickman.GameObjects.Wall;
 import java.util.ArrayList;
 
 import static com.codecool.stickman.GameObjects.GameObjectType.FLOOR;
-import static com.codecool.stickman.GameObjects.GameObjectType.FOREST;
+import static com.codecool.stickman.GameObjects.GameObjectType.WALL;
 
 public class Level {
     ArrayList<GameObject> map = new ArrayList<>();

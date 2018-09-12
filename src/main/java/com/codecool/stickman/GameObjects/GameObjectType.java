@@ -1,12 +1,12 @@
 package com.codecool.stickman.GameObjects;
 
 public enum GameObjectType {
-    PLAYER,
-    FOREST,
-    FLOOR,
-    LOOT,
     SKELETON,
+    SLIME,
     DRAGON,
-    ORC,
-    SLIME;
-};
+    LOOT,
+    WALL,
+    FLOOR,
+    ENEMY,
+    MAIN_CHARACTER;
+}
