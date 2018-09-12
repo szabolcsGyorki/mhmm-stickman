@@ -4,6 +4,7 @@ public enum GameObjectType {
     SKELETON,
     SLIME,
     DRAGON,
+    ORC,
     LOOT,
     WALL,
     FLOOR,
