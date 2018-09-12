@@ -29,7 +29,7 @@ function loadImages() {
     wall_image = loadImage(dir + 'image_wall' + ext);
 }
 
-function ajax_get(url, callback) {
+function ajax_get(url, callback, action) {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
@@ -43,8 +43,9 @@ function ajax_get(url, callback) {
             callback(data);
         }
     };
+    xmlhttp.setRequestHeader('action', action);
     xmlhttp.open("GET", url, true);
-    xmlhttp.send('map');
+    xmlhttp.send();
 
 }
 
@@ -71,7 +72,7 @@ button.onclick = function () {
                 }
             }
         }
-    })
+    }, 'map')
 };
 
 

@@ -22,7 +22,7 @@ import org.json.simple.JSONValue;
 public class AjaxCall extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String actionRequired = req.getHeader("action");
         //resp.getWriter().write(levelToJson(INSERT LIST HERE).toJSONString());
 
     }
