@@ -8,7 +8,7 @@ import com.codecool.stickman.GameObjects.GameObjectType;
 import com.codecool.stickman.GameObjects.Wall;
 
 import static com.codecool.stickman.GameObjects.GameObjectType.FLOOR;
-import static com.codecool.stickman.GameObjects.GameObjectType.FOREST;
+import static com.codecool.stickman.GameObjects.GameObjectType.WALL;
 
 public abstract class Level {
     GameObject[][] map;
@@ -21,7 +21,7 @@ public abstract class Level {
         GameObject destination = map[toX][toY];
 
         switch (map[toX][toY].getType()) {
-            case FOREST: break;
+            case WALL: break;
             case FLOOR: {
                 map[toX][toY] = movingCharacter;
                 map[fromX][fromY] = destination;
@@ -57,13 +57,13 @@ public abstract class Level {
             for (int j = 1; j<HEIGHT-1; j++) {
                 this.map[i][j] = new Floor(i, j, FLOOR);
             }
-            this.map[i][0] = new Wall(i,0,FOREST);
-            this.map[i][HEIGHT-1] = new Wall(i,HEIGHT-1,FOREST);
+            this.map[i][0] = new Wall(i,0, WALL);
+            this.map[i][HEIGHT-1] = new Wall(i,HEIGHT-1, WALL);
         }
         for(int i = 0; i< HEIGHT-1; i++){
-            this.map[0][i] = new Wall(0,i,FOREST);
-            this.map[WIDTH-1][i] = new Wall(WIDTH-1,i,FOREST);
+            this.map[0][i] = new Wall(0,i, WALL);
+            this.map[WIDTH-1][i] = new Wall(WIDTH-1,i, WALL);
         }
-        this.map[WIDTH-1][HEIGHT-1] = new Wall(WIDTH-1,HEIGHT-1,FOREST);
+        this.map[WIDTH-1][HEIGHT-1] = new Wall(WIDTH-1,HEIGHT-1, WALL);
     }
 }

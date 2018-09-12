@@ -8,7 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
+import com.codecool.stickman.GameObjects.Characters.Player;
+import com.codecool.stickman.GameObjects.GameObject;
+import com.codecool.stickman.map.Level;
+import com.codecool.stickman.map.LevelOne;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -18,23 +23,26 @@ public class AjaxCall extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String asd[][] = new String [5][5];
-
-
-        JSONObject mylist = new JSONObject();
-
-        JSONObject obj = new JSONObject();
-        obj.put("name", "WALL");
-        obj.put("x", 0);
-        obj.put("y", 0);
-
-        JSONArray arr2 = new JSONArray();
-
-        arr2.add(obj);
-
-        resp.getWriter().write(arr2.toJSONString());
+        //resp.getWriter().write(levelToJson(INSERT LIST HERE).toJSONString());
 
     }
 
+    /**
+     * Converts a list of GameObjects to a JSONObject that's AJAX response ready
+     * @return JSONArray with JSONObjects
+     */
+    @SuppressWarnings("unchecked")
+    private JSONArray levelToJson (ArrayList<GameObject> gameObjects) {
+        JSONArray gameObjectsJSONArray = new JSONArray();
+
+        for (GameObject gameObject: gameObjects) {
+            JSONObject obj = new JSONObject();
+            obj.put("name", gameObject.getType().toString());
+            obj.put("x", gameObject.getX());
+            obj.put("y", gameObject.getY());
+            gameObjectsJSONArray.add(obj);
+        }
+        return gameObjectsJSONArray;
+    }
 
 }

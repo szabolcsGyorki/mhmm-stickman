@@ -1,14 +1,9 @@
 package com.codecool.stickman.map;
 import static com.codecool.stickman.GameObjects.GameObjectType.FLOOR;
-import static com.codecool.stickman.GameObjects.GameObjectType.FOREST;
 
 import com.codecool.stickman.GameObjects.Characters.Player;
 import com.codecool.stickman.GameObjects.Characters.Enemy.Slime;
-import com.codecool.stickman.GameObjects.Floor;
 import com.codecool.stickman.GameObjects.GameObject;
-import com.codecool.stickman.GameObjects.GameObjectType;
-import com.codecool.stickman.GameObjects.Items.Item;
-import com.codecool.stickman.GameObjects.Wall;
 
 public class LevelOne extends Level{
 

@@ -1,8 +1,7 @@
-var array = [[1,2,3,4], [1,2,3,4], [1,2,3,4]];
 
-var dragon_image, loot_image, main_character_image, orc_image, skeleton_image, slime_image, wall_image;
-var dir = 'static/img/';
-var ext = '.png';
+let dragon_image, loot_image, main_character_image, orc_image, skeleton_image, slime_image, wall_image;
+let dir = 'static/img/';
+let ext = '.png';
 
 function preload() {
     loadImages();
@@ -31,12 +30,12 @@ function loadImages() {
 }
 
 function ajax_get(url, callback) {
-    var xmlhttp = new XMLHttpRequest();
+    let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
             console.log('responseText:' + xmlhttp.responseText);
             try {
-                var data = JSON.parse(xmlhttp.responseText);
+                let data = JSON.parse(xmlhttp.responseText);
             } catch(err) {
                 console.log(err.message + " in " + xmlhttp.responseText);
                 return;
@@ -46,9 +45,10 @@ function ajax_get(url, callback) {
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
+
 }
 
-var button = document.getElementById('test');
+let button = document.getElementById('test');
 button.onclick = function () {
 
     ajax_get('/send', function (data) {
