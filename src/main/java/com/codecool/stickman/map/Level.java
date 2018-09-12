@@ -1,49 +1,90 @@
 package com.codecool.stickman.map;
 import com.codecool.stickman.GameObjects.Characters.Character;
+import com.codecool.stickman.GameObjects.Characters.Enemy.*;
 import com.codecool.stickman.GameObjects.Characters.Player;
-import com.codecool.stickman.GameObjects.Characters.Enemy.Enemy;
 import com.codecool.stickman.GameObjects.Floor;
 import com.codecool.stickman.GameObjects.GameObject;
 import com.codecool.stickman.GameObjects.GameObjectType;
 import com.codecool.stickman.GameObjects.Wall;
 
+import java.util.ArrayList;
+
 import static com.codecool.stickman.GameObjects.GameObjectType.FLOOR;
 import static com.codecool.stickman.GameObjects.GameObjectType.FOREST;
 
-public abstract class Level {
-    GameObject[][] map;
+public class Level {
+    ArrayList<GameObject> map = new ArrayList<>();
     int WIDTH;
     int HEIGHT;
+    GameObjectType wall;
+    GameObjectType floor;
+
+    public Level(int width, int height, GameObjectType wall, GameObjectType floor) {
+        this.WIDTH=width;
+        this.HEIGHT=height;
+        this.wall = wall;
+        this.floor = floor;
+        generateBase();
+    }
+
+    public GameObjectType getFloor() {
+        return floor;
+    }
+
+    public void placeWall(int X,int Y){
+        map.add(new Wall(X,Y,this.wall));
+    }
+
+    public void placeEnemy(int X,int Y, GameObjectType type, int level) {
+        switch (type) {
+            case SLIME:
+                map.add(new Slime(X,Y,level));
+                break;
+            case ORC:
+                map.add(new Orc(X,Y,level));
+                break;
+            case SKELETON:
+                map.add(new Skeleton(X,Y,level));
+                break;
+            case DRAGON:
+                map.add(new Dragon(X,Y,level));
+                break;
+        }
+    }
 
     public void move(int toX, int toY, Character movingCharacter){
         int fromX = movingCharacter.getX();
         int fromY = movingCharacter.getY();
-        GameObject destination = map[toX][toY];
+        GameObject destination = new Floor(1,1,FLOOR);
 
-        switch (map[toX][toY].getType()) {
+        for (GameObject mapElement: map)
+            if (mapElement.getX() == toX && mapElement.getY() == toY) {
+                destination = mapElement;
+                break;
+            }
+
+        switch (destination.getType()) {
             case FOREST: break;
             case FLOOR: {
-                map[toX][toY] = movingCharacter;
-                map[fromX][fromY] = destination;
                 movingCharacter.place(toX, toY);
                 break;
             }
             case LOOT: {
-                map[toX][toY] = movingCharacter;
-                map[fromX][fromY] = new Floor(fromX, fromY, GameObjectType.FLOOR);
                 movingCharacter.place(toX, toY);
+                // pick up
+                map.remove(destination);
                 break;
             }
-            case ENEMY: {
+            case SLIME: {     // !!!!! PROBLEM !!!!!!
                 if (movingCharacter instanceof Player) {
                     Player player = (Player) movingCharacter;
                     Enemy enemy = (Enemy) destination;
                     player.takeDamage(enemy.attack());
                     enemy.takeDamage(player.attack());
                     if (enemy.getHitPoint() <= 0) {
-                        map[toX][toY] = movingCharacter;
-                        map[fromX][fromY] = new Floor(fromX, fromY, FLOOR);
+                        map.remove(destination);
                         movingCharacter.place(toX, toY);
+                        //get loot after enemy
                     }
                     break;
                 }
@@ -54,16 +95,13 @@ public abstract class Level {
 
     void generateBase(){
         for(int i = 0; i< WIDTH-1; i++){
-            for (int j = 1; j<HEIGHT-1; j++) {
-                this.map[i][j] = new Floor(i, j, FLOOR);
-            }
-            this.map[i][0] = new Wall(i,0,FOREST);
-            this.map[i][HEIGHT-1] = new Wall(i,HEIGHT-1,FOREST);
+            map.add(new Wall(i,0,this.wall));
+            map.add(new Wall(i,HEIGHT-1,this.wall));
         }
         for(int i = 0; i< HEIGHT-1; i++){
-            this.map[0][i] = new Wall(0,i,FOREST);
-            this.map[WIDTH-1][i] = new Wall(WIDTH-1,i,FOREST);
+            map.add(new Wall(0,i,this.wall));
+            map.add(new Wall(WIDTH-1,i,this.wall));
         }
-        this.map[WIDTH-1][HEIGHT-1] = new Wall(WIDTH-1,HEIGHT-1,FOREST);
+        map.add(new Wall(WIDTH-1,HEIGHT-1,this.wall));
     }
 }

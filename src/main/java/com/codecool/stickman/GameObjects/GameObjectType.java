@@ -4,6 +4,9 @@ public enum GameObjectType {
     PLAYER,
     FOREST,
     FLOOR,
-    ENEMY,
-    LOOT;
-}
+    LOOT,
+    SKELETON,
+    DRAGON,
+    ORC,
+    SLIME;
+};
