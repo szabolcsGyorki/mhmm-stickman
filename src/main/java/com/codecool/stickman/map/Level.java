@@ -31,6 +31,14 @@ public class Level {
         return map;
     }
 
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
     public GameObjectType getFloor() {
         return floor;
     }
@@ -62,37 +70,41 @@ public class Level {
     public void move(int toX, int toY, Character movingCharacter){
         int fromX = movingCharacter.getX();
         int fromY = movingCharacter.getY();
-        GameObject destination = new Floor(1,1,FLOOR);
+        GameObject destination = null;
 
-        for (GameObject mapElement: map)
+        for (GameObject mapElement: map) {
             if (mapElement.getX() == toX && mapElement.getY() == toY) {
                 destination = mapElement;
                 break;
             }
+        }
 
-        switch (destination.getType()) {
-            case FLOOR: {
-                movingCharacter.place(toX, toY);
-                break;
-            }
-            case LOOT: {
-                movingCharacter.place(toX, toY);
-                // pick up
-                map.remove(destination);
-                break;
-            }
-            case SLIME: {     // !!!!! PROBLEM !!!!!!
-                if (movingCharacter instanceof Player) {
-                    Player player = (Player) movingCharacter;
-                    Enemy enemy = (Enemy) destination;
-                    player.takeDamage(enemy.attack());
-                    enemy.takeDamage(player.attack());
-                    if (enemy.getHitPoint() <= 0) {
-                        map.remove(destination);
-                        movingCharacter.place(toX, toY);
-                        //get loot after enemy
-                    }
+        if (destination == null) {
+            movingCharacter.place(toX, toY);
+        } else {
+            switch (destination.getType()) {
+                case LOOT: {
+                    movingCharacter.place(toX, toY);
+                    // pick up
+                    map.remove(destination);
                     break;
+                }
+                case DRAGON:
+                case ORC:
+                case SKELETON:
+                case SLIME: {
+                    if (movingCharacter instanceof Player) {
+                        Player player = (Player) movingCharacter;
+                        Enemy enemy = (Enemy) destination;
+                        player.takeDamage(enemy.attack());
+                        enemy.takeDamage(player.attack());
+                        if (enemy.getHitPoint() <= 0) {
+                            map.remove(destination);
+                            movingCharacter.place(toX, toY);
+                            //get loot after enemy
+                        }
+                        break;
+                    }
                 }
             }
         }
@@ -104,10 +116,9 @@ public class Level {
             map.add(new Wall(i,0,this.wall));
             map.add(new Wall(i,HEIGHT-1,this.wall));
         }
-        for(int i = 0; i< HEIGHT-1; i++){
+        for(int i = 1; i< HEIGHT-2; i++){
             map.add(new Wall(0,i,this.wall));
             map.add(new Wall(WIDTH-1,i,this.wall));
         }
-        map.add(new Wall(WIDTH-1,HEIGHT-1,this.wall));
     }
 }
