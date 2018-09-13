@@ -25,19 +25,23 @@ import static com.codecool.stickman.GameObjects.GameObjectType.*;
 
 @WebServlet(urlPatterns = {"/send"})
 public class AjaxCall extends HttpServlet {
-    Player Zsolt = new Player(1,5);
-    Level levelOne = new Level(10,10 ,WALL, FLOOR);
-
-    public void init(){
+    Player Zsolt;
+    Level levelOne;
+    Boolean demoLoad = false;
+    public void initForDemo(){
+        levelOne = new Level(10,10 ,WALL, FLOOR);
+        Zsolt = new Player(1,5);
         levelOne.placeWall(2,2);
         levelOne.placeEnemy(1,1,SLIME,1);
         levelOne.placeEnemy(1,2,SKELETON,1);
         levelOne.placeEnemy(1,3,ORC,1);
         levelOne.placeEnemy(1,4,DRAGON,1);
         levelOne.placePlayer(Zsolt);
+        demoLoad = true;
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!demoLoad) { initForDemo(); }    // For demo only
         String actionRequired = req.getHeader("action");
         switch (actionRequired){
             case "up":{
