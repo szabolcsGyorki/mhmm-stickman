@@ -15,6 +15,9 @@ public abstract class Character extends GameObject {
     protected int dodgeChanse;
     protected int armor;
     protected int hitChanse;
+
+
+
     List<Item> items = new ArrayList<>();
     protected GameObjectType type;
 
@@ -57,6 +60,10 @@ public abstract class Character extends GameObject {
 
     public void setHitPoint(int hitPoint) {
         this.hitPoint = hitPoint;
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
 }

@@ -13,8 +13,6 @@ public class Player extends Character {
     public static int X;
     public static int Y;
 
-
-
     public Player(int X, int Y) {
         super(X, Y, 30, 0);
         this.type = GameObjectType.MAIN_CHARACTER;
@@ -71,5 +69,24 @@ public class Player extends Character {
         return testValue<intelligence;
     }
 
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public int getAgility() {
+        return agility;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public Armor getFullBody() {
+        return fullBody;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
 
 }

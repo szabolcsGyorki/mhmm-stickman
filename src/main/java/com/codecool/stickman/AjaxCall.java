@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import com.codecool.stickman.GameObjects.Characters.Player;
 import com.codecool.stickman.GameObjects.GameObject;
 import com.codecool.stickman.GameObjects.GameObjectType;
+import com.codecool.stickman.GameObjects.Items.Armor;
+import com.codecool.stickman.GameObjects.Items.Item;
+import com.codecool.stickman.GameObjects.Items.Weapon;
 import com.codecool.stickman.map.Level;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -31,6 +34,7 @@ public class AjaxCall extends HttpServlet {
         levelOne.placeEnemy(1,2,SKELETON,1);
         levelOne.placeEnemy(1,3,ORC,1);
         levelOne.placeEnemy(1,4,DRAGON,1);
+        levelOne.placePlayer(Zsolt);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,6 +64,7 @@ public class AjaxCall extends HttpServlet {
         //resp.getWriter().write(levelToJson(INSERT LIST HERE).toJSONString());
 
         resp.getWriter().write(levelToJson(levelOne.getMap()).toJSONString());
+        resp.getWriter().write(characterToJson(Zsolt).toJSONString());
 
     }
 
@@ -79,6 +84,36 @@ public class AjaxCall extends HttpServlet {
             gameObjectsJSONArray.add(obj);
         }
         return gameObjectsJSONArray;
+    }
+
+    @SuppressWarnings("unchecked")
+    private JSONObject characterToJson (Player player) {
+        JSONObject character = new JSONObject();
+        JSONArray characterInventory = new JSONArray();
+
+        //filling inventory
+        for (Item item: player.getItems()) {
+            JSONObject jsonItem = new JSONObject();
+
+            jsonItem.put("name", item.getName());
+            if (item instanceof Weapon) {
+                jsonItem.put("maxDamage", ((Weapon) item).getMaxDamage());
+                jsonItem.put("minDamage", ((Weapon) item).getMinDamage());
+            } else {
+                jsonItem.put("healthIncrease", ((Armor) item).getHealthIncrease());
+            }
+            characterInventory.add(jsonItem);
+        }
+
+        //filling character details
+        character.put("hp", player.getHitPoint());
+        character.put("str", player.getStrength());
+        character.put("agi", player.getAgility());
+        character.put("int", player.getIntelligence());
+
+        character.put("inventory", characterInventory);
+
+        return character;
     }
 
 }

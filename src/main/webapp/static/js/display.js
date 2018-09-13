@@ -1,4 +1,5 @@
 let mapObjects = [];
+let mainCharacter;
 
 function preload() {
     loadImages();
@@ -20,7 +21,7 @@ imageButton.onclick = function () {
     requestMap('map');
 };
 
-let inventoryButton = document.getElementById('inventory');
+let inventoryButton = document.getElementById('inventory_button');
 inventoryButton.onclick = function () {
     //TODO
 };
@@ -36,6 +37,7 @@ function drawBoard() {
             case 'LOOT': image(loot_image, object.x*50, object.y*50, height/12, width/12);
                 break;
             case 'MAIN_CHARACTER': image(main_character_image, object.x*50, object.y*50, height/12, width/12);
+                mainCharacter = object;
                 break;
             case 'SKELETON': image(skeleton_image, object.x*50, object.y*50, height/12, width/12);
                 break;

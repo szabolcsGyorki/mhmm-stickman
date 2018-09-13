@@ -33,7 +33,7 @@ public abstract class Item extends GameObject {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 }
